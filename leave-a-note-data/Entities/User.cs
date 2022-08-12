@@ -18,6 +18,8 @@ namespace leave_a_note_data.Entities
         public string PasswrodHash { get; set; }
         
         [Required]
-        public UserRole role { get; set; }
+        public UserRole Role { get; set; }
+
+        public List<Note> Notes { get; set; }
     }
 }
