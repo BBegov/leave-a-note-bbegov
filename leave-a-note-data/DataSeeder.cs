@@ -24,7 +24,7 @@ namespace leave_a_note_data
                     UserName = "MainAdmin",
                     FirstName = "Main",
                     LastName = "Admin",
-                    PasswrodHash = BCrypt.Net.BCrypt.HashPassword("asdf1234"),
+                    PasswordHash = BCrypt.Net.BCrypt.HashPassword("asdf1234"),
                     Role = UserRole.Admin
                 }
             };

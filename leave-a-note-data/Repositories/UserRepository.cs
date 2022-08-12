@@ -28,7 +28,7 @@ public class UserRepository : IRepository<User>
         userToUpdate.UserName = entity.UserName;
         userToUpdate.FirstName = entity.FirstName;
         userToUpdate.LastName = entity.LastName;
-        userToUpdate.PasswrodHash = entity.PasswrodHash;
+        userToUpdate.PasswordHash = entity.PasswordHash;
         await _context.SaveChangesAsync();
         return userToUpdate;
     }

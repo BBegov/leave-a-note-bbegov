@@ -16,7 +16,7 @@ public class User
     public string LastName { get; set; }
 
     [Required]
-    public string PasswrodHash { get; set; }
+    public string PasswordHash { get; set; }
 
     [Required]
     public UserRole Role { get; set; }
