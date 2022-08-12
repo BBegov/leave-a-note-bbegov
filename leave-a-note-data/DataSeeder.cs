@@ -38,7 +38,7 @@ namespace leave_a_note_data
                 {
                     NoteText = "Hello, this is the first note!",
                     PublishDate = DateTime.Now,
-                    User = _context.Users.First(),
+                    User = users[0]
                 }
             };
 
