@@ -31,6 +31,19 @@ namespace leave_a_note_data
 
             _context.Users.AddRange(users);
             _context.SaveChanges();
+
+            var notes = new Note[]
+            {
+                new()
+                {
+                    NoteText = "Hello, this is the first note!",
+                    PublishDate = DateTime.Now,
+                    User = _context.Users.First(),
+                }
+            };
+
+            _context.Notes.AddRange(notes);
+            _context.SaveChanges();
         }
     }
 }
