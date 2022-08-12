@@ -1,18 +1,17 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace leave_a_note_data.Entities
-{
-    public class Note
-    {
-        public Guid Id { get; set; }
-        
-        [Required]
-        public string NoteText { get; set; }
-        
-        [Required]
-        public DateTime PublishDate { get; set; }
+namespace leave_a_note_data.Entities;
 
-        [Required]
-        public User User { get; set; }
-    }
+public class Note
+{
+    public Guid Id { get; set; }
+
+    [Required]
+    public string NoteText { get; set; }
+
+    [Required]
+    public DateTime PublishDate { get; set; }
+
+    [Required]
+    public User User { get; set; }
 }
