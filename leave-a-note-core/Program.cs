@@ -1,16 +1,21 @@
 using leave_a_note_data;
+using leave_a_note_data.Entities;
+using leave_a_note_data.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
 
-// Data storage service
+// Add data storage service
 builder.Services.AddDbContext<LeaveANoteDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddTransient<DataSeeder>();
+
+// Add data repository service
+builder.Services.AddTransient<IRepository<User>, UserRepository>();
+builder.Services.AddTransient<IRepository<Note>, NoteRepository>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
