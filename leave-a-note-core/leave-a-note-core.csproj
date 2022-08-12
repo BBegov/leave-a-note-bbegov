@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\éeave-a-note-data\leave-a-note-data.csproj" />
+    <ProjectReference Include="..\leave-a-note-data\leave-a-note-data.csproj" />
   </ItemGroup>
 
 </Project>
