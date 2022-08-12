@@ -17,7 +17,7 @@ public class NoteRepository : IRepository<Note>
         return await _context.Notes.AsNoTracking().ToListAsync();
     }
 
-    public async Task<Note> GetAsync(Guid id)
+    public async Task<Note> GetAsync(int id)
     {
         return await _context.Notes.AsNoTracking().FirstAsync(note => note.Id == id);
     }
@@ -31,7 +31,7 @@ public class NoteRepository : IRepository<Note>
         return noteToUpdate;
     }
 
-    public async Task DeleteAsync(Guid id)
+    public async Task DeleteAsync(int id)
     {
         _context.Notes.Remove(await GetAsync(id));
         await _context.SaveChangesAsync();

@@ -17,7 +17,7 @@ public class UserRepository : IRepository<User>
         return await _context.Users.Include(user => user.Notes).AsNoTracking().ToListAsync();
     }
 
-    public async Task<User> GetAsync(Guid id)
+    public async Task<User> GetAsync(int id)
     {
         return await _context.Users.AsNoTracking().FirstAsync(user => user.Id == id);
     }
@@ -33,7 +33,7 @@ public class UserRepository : IRepository<User>
         return userToUpdate;
     }
 
-    public async Task DeleteAsync(Guid id)
+    public async Task DeleteAsync(int id)
     {
         _context.Users.Remove(await GetAsync(id));
         await _context.SaveChangesAsync();

@@ -4,7 +4,7 @@ namespace leave_a_note_data.Entities;
 
 public class Note
 {
-    public Guid Id { get; set; }
+    public int Id { get; set; }
 
     [Required]
     public string NoteText { get; set; }
