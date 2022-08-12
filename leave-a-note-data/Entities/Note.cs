@@ -2,7 +2,7 @@
 
 namespace leave_a_note_data.Entities
 {
-    internal class Notes
+    public class Note
     {
         public Guid Id { get; set; }
         
