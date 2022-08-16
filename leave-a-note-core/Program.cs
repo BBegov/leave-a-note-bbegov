@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using leave_a_note_core.Services;
 using leave_a_note_core.Services.PasswordHasher;
 using leave_a_note_data;
 using leave_a_note_data.Entities;
@@ -23,6 +24,9 @@ builder.Services.AddTransient<DataSeeder>();
 // Add data repository service
 builder.Services.AddTransient<IRepository<User>, UserRepository>();
 builder.Services.AddTransient<IRepository<Note>, NoteRepository>();
+
+// Add service layer services
+builder.Services.AddTransient<IUserService, UserService>();
 
 // Add password hashing service
 builder.Services.AddTransient<IPasswordHasher, BCryptPasswordHasher>();
