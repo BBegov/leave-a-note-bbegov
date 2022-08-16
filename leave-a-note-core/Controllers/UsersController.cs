@@ -1,6 +1,6 @@
-﻿using leave_a_note_core.Models.DTOs;
+﻿using BCrypt.Net;
+using leave_a_note_core.Models.DTOs;
 using leave_a_note_core.Services;
-using leave_a_note_core.Services.PasswordHasher;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,12 +11,10 @@ namespace leave_a_note_core.Controllers
     public class UsersController : ControllerBase
     {
         private readonly IUserService _userService;
-        private readonly IPasswordHasher _passwordHasher;
 
-        public UsersController(IUserService userService, IPasswordHasher passwordHasher)
+        public UsersController(IUserService userService)
         {
             _userService = userService;
-            _passwordHasher = passwordHasher;
         }
 
         [HttpGet]
@@ -41,8 +39,6 @@ namespace leave_a_note_core.Controllers
         [HttpPost]
         public async Task<ActionResult<UserViewDto>> AddUser(UserCreateDto newUser)
         {
-            newUser.Password = _passwordHasher.HashPassword(newUser.Password);
-
             try
             {
                 var createdUser = await _userService.AddUserAsync(newUser);
@@ -80,6 +76,25 @@ namespace leave_a_note_core.Controllers
             catch (InvalidOperationException)
             {
                 return NotFound($"No user with ID:{id} found.");
+            }
+        }
+
+        [HttpPatch("{id:int}")]
+        public async Task<ActionResult<UserViewDto>> ChangePassword(UserChangePasswordDto userChangePasswordDto, int id)
+        {
+            userChangePasswordDto.Id = id;
+
+            try
+            {
+                return await _userService.ChangePassword(userChangePasswordDto);
+            }
+            catch (InvalidOperationException)
+            {
+                return NotFound($"No user with ID:{id} found.");
+            }
+            catch (BcryptAuthenticationException)
+            {
+                return BadRequest("The given password does not match with original password.");
             }
         }
     }
