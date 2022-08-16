@@ -22,7 +22,7 @@ builder.Services.AddDbContext<LeaveANoteDbContext>(options =>
 builder.Services.AddTransient<DataSeeder>();
 
 // Add data repository service
-builder.Services.AddTransient<IRepository<User>, UserRepository>();
+builder.Services.AddTransient<IUserRepository, UserRepository>();
 builder.Services.AddTransient<IRepository<Note>, NoteRepository>();
 
 // Add service layer services
