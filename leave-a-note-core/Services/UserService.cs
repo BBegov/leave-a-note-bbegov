@@ -20,8 +20,7 @@ public class UserService : IUserService
     public async Task<List<UserViewDto>> GetAllUsersAsync()
     {
         return (await _userRepository.GetAllAsync())
-            .Select(user => user.ToUserViewDto())
-            .ToList();
+            .ToUserListViewDto();
     }
 
     public async Task<UserViewDto> GetUserByIdAsync(int id)
