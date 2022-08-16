@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace leave_a_note_data.Repositories;
 
-public class UserRepository : IRepository<User>
+public class UserRepository : IUserRepository
 {
     private readonly LeaveANoteDbContext _context;
 
@@ -43,5 +43,17 @@ public class UserRepository : IRepository<User>
     {
         await _context.Users.AddAsync(entity);
         await _context.SaveChangesAsync();
+    }
+
+    public async Task<User> UpdateWithPasswordAsync(User entity)
+    {
+        var userToUpdate = await _context.Users.SingleAsync(u => u.Id == entity.Id);
+        userToUpdate.UserName = entity.UserName;
+        userToUpdate.FirstName = entity.FirstName;
+        userToUpdate.LastName = entity.LastName;
+        userToUpdate.PasswordHash = entity.PasswordHash;
+
+        await _context.SaveChangesAsync();
+        return userToUpdate;
     }
 }
