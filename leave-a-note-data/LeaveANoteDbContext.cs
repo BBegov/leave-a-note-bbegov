@@ -1,24 +1,23 @@
 ﻿using leave_a_note_data.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace leave_a_note_data
+namespace leave_a_note_data;
+
+public class LeaveANoteDbContext : DbContext
 {
-    public class LeaveANoteDbContext : DbContext
+    public LeaveANoteDbContext(DbContextOptions<LeaveANoteDbContext> options)
+        : base(options)
     {
-        public LeaveANoteDbContext(DbContextOptions<LeaveANoteDbContext> options)
-            : base(options)
-        {
-        }
+    }
 
-        public DbSet<User> Users { get; set; }
-        public DbSet<Note> Notes { get; set; }
+    public DbSet<User> Users { get; set; }
+    public DbSet<Note> Notes { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Note>().ToTable("Note");
-            modelBuilder.Entity<User>().ToTable("User");
-        }
+        modelBuilder.Entity<Note>().ToTable("Note");
+        modelBuilder.Entity<User>().ToTable("User");
     }
 }

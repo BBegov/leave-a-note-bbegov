@@ -4,98 +4,97 @@ using leave_a_note_core.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace leave_a_note_core.Controllers
+namespace leave_a_note_core.Controllers;
+
+[Route("api/[controller]")]
+[ApiController]
+public class UsersController : ControllerBase
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class UsersController : ControllerBase
+    private readonly IUserService _userService;
+
+    public UsersController(IUserService userService)
     {
-        private readonly IUserService _userService;
+        _userService = userService;
+    }
 
-        public UsersController(IUserService userService)
+    [HttpGet]
+    public async Task<ActionResult<List<UserViewDto>>> GetAllUsers()
+    {
+        return await _userService.GetAllUsersAsync();
+    }
+
+    [HttpGet("{id:int}", Name = "GetUser")]
+    public async Task<ActionResult<UserViewDto>> GetUser(int id)
+    {
+        try
         {
-            _userService = userService;
+            return await _userService.GetUserByIdAsync(id);
         }
-
-        [HttpGet]
-        public async Task<ActionResult<List<UserViewDto>>> GetAllUsers()
+        catch (InvalidOperationException)
         {
-            return await _userService.GetAllUsersAsync();
+            return NotFound($"No user with ID:{id} found.");
         }
+    }
 
-        [HttpGet("{id:int}", Name = "GetUser")]
-        public async Task<ActionResult<UserViewDto>> GetUser(int id)
+    [HttpPost]
+    public async Task<ActionResult<UserViewDto>> AddUser(UserCreateDto newUser)
+    {
+        try
         {
-            try
-            {
-                return await _userService.GetUserByIdAsync(id);
-            }
-            catch (InvalidOperationException)
-            {
-                return NotFound($"No user with ID:{id} found.");
-            }
+            var createdUser = await _userService.AddUserAsync(newUser);
+            return CreatedAtRoute("GetUser", new { id = createdUser.Id }, createdUser);
         }
-
-        [HttpPost]
-        public async Task<ActionResult<UserViewDto>> AddUser(UserCreateDto newUser)
+        catch (DbUpdateException ex)
         {
-            try
-            {
-                var createdUser = await _userService.AddUserAsync(newUser);
-                return CreatedAtRoute("GetUser", new {id = createdUser.Id}, createdUser);
-            }
-            catch (DbUpdateException ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            return BadRequest(ex.Message);
         }
+    }
 
-        [HttpPut("{id:int}")]
-        public async Task<ActionResult<UserViewDto>> UpdateUser(UserUpdateDto updatedUser, int id)
+    [HttpPut("{id:int}")]
+    public async Task<ActionResult<UserViewDto>> UpdateUser(UserUpdateDto updatedUser, int id)
+    {
+        updatedUser.Id = id;
+
+        try
         {
-            updatedUser.Id = id;
-            
-            try
-            {
-                return await _userService.UpdateUserAsync(updatedUser);
-            }
-            catch (InvalidOperationException)
-            {
-                return NotFound($"No user with ID:{id} found.");
-            }
+            return await _userService.UpdateUserAsync(updatedUser);
         }
-
-        [HttpDelete("{id:int}")]
-        public async Task<ActionResult> DeleteUser(int id)
+        catch (InvalidOperationException)
         {
-            try
-            {
-                await _userService.DeleteUserAsync(id);
-                return NoContent();
-            }
-            catch (InvalidOperationException)
-            {
-                return NotFound($"No user with ID:{id} found.");
-            }
+            return NotFound($"No user with ID:{id} found.");
         }
+    }
 
-        [HttpPatch("{id:int}")]
-        public async Task<ActionResult<UserViewDto>> ChangePassword(UserChangePasswordDto userChangePasswordDto, int id)
+    [HttpDelete("{id:int}")]
+    public async Task<ActionResult> DeleteUser(int id)
+    {
+        try
         {
-            userChangePasswordDto.Id = id;
+            await _userService.DeleteUserAsync(id);
+            return NoContent();
+        }
+        catch (InvalidOperationException)
+        {
+            return NotFound($"No user with ID:{id} found.");
+        }
+    }
 
-            try
-            {
-                return await _userService.ChangePassword(userChangePasswordDto);
-            }
-            catch (InvalidOperationException)
-            {
-                return NotFound($"No user with ID:{id} found.");
-            }
-            catch (BcryptAuthenticationException)
-            {
-                return BadRequest("The given password does not match with original password.");
-            }
+    [HttpPatch("{id:int}")]
+    public async Task<ActionResult<UserViewDto>> ChangePassword(UserChangePasswordDto userChangePasswordDto, int id)
+    {
+        userChangePasswordDto.Id = id;
+
+        try
+        {
+            return await _userService.ChangePassword(userChangePasswordDto);
+        }
+        catch (InvalidOperationException)
+        {
+            return NotFound($"No user with ID:{id} found.");
+        }
+        catch (BcryptAuthenticationException)
+        {
+            return BadRequest("The given password does not match with original password.");
         }
     }
 }
