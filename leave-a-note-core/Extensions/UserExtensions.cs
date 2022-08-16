@@ -45,5 +45,29 @@ namespace leave_a_note_core.Extensions
                 LastName = userUpdateDto.LastName
             };
         }
+
+        public static User ToUserEntity(this UserUpdateWithPasswordDto userUpdateWithPasswordDto)
+        {
+            return new User
+            {
+                Id = userUpdateWithPasswordDto.Id,
+                UserName = userUpdateWithPasswordDto.UserName,
+                FirstName = userUpdateWithPasswordDto.FirstName,
+                LastName = userUpdateWithPasswordDto.LastName,
+                PasswordHash = userUpdateWithPasswordDto.Password
+            };
+        }
+
+        public static UserUpdateWithPasswordDto ToUserPasswordUpdateDto(this User user)
+        {
+            return new UserUpdateWithPasswordDto
+            {
+                Id = user.Id,
+                UserName = user.UserName,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Password = user.PasswordHash
+            };
+        }
     }
 }
