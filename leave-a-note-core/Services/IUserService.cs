@@ -9,5 +9,7 @@ namespace leave_a_note_core.Services
         Task<UserViewDto> AddUserAsync(UserCreateDto userCreateDto);
         Task<UserViewDto> UpdateUserAsync(UserUpdateDto userUpdateDto);
         Task DeleteUserAsync(int id);
+        Task<UserViewDto> ChangePassword(UserChangePasswordDto userChangePasswordDto);
+
     }
 }
