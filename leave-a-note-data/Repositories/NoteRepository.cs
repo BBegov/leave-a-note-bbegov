@@ -14,7 +14,10 @@ public class NoteRepository : IRepository<Note>
 
     public async Task<List<Note>> GetAllAsync()
     {
-        return await _context.Notes.AsNoTracking().ToListAsync();
+        return await _context.Notes
+            .OrderByDescending(n => n.PublishDate)
+            .AsNoTracking()
+            .ToListAsync();
     }
 
     public async Task<Note> GetAsync(int id)

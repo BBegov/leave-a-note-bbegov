@@ -34,6 +34,8 @@ public class UserService : IUserService
 
         return (await _userRepository.GetAsync(id))
             .Notes
+            .OrderByDescending(n => n.PublishDate)
+            .ToList()
             .ToNoteListViewDto();
     }
 
