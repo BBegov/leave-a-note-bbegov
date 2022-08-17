@@ -27,6 +27,7 @@ builder.Services.AddTransient<IRepository<Note>, NoteRepository>();
 
 // Add service layer services
 builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddTransient<INoteService, NoteService>();
 
 // Add password hashing service
 builder.Services.AddTransient<IPasswordHasher, BCryptPasswordHasher>();

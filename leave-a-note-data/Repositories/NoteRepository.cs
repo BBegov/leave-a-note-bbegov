@@ -14,17 +14,17 @@ public class NoteRepository : IRepository<Note>
 
     public async Task<List<Note>> GetAllAsync()
     {
-        return await _context.Notes.Include(n => n.User).AsNoTracking().ToListAsync();
+        return await _context.Notes.AsNoTracking().ToListAsync();
     }
 
     public async Task<Note> GetAsync(int id)
     {
-        return await _context.Notes.Include(n => n.User).AsNoTracking().FirstAsync(note => note.Id == id);
+        return await _context.Notes.AsNoTracking().FirstAsync(note => note.Id == id);
     }
 
     public async Task<Note> UpdateAsync(Note entity)
     {
-        var noteToUpdate = await GetAsync(entity.Id);
+        var noteToUpdate = await _context.Notes.SingleAsync(n => n.Id == entity.Id);
         noteToUpdate.NoteText = entity.NoteText;
         noteToUpdate.PublishDate = DateTime.Now;
         await _context.SaveChangesAsync();

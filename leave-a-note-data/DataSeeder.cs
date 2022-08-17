@@ -38,7 +38,7 @@ public class DataSeeder
                 {
                     NoteText = "Hello, this is the first note!",
                     PublishDate = DateTime.Now,
-                    User = users[0]
+                    UserId = 1
                 }
         };
 

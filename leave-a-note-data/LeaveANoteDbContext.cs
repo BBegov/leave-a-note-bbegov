@@ -17,7 +17,7 @@ public class LeaveANoteDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
-        modelBuilder.Entity<Note>().ToTable("Note");
+        modelBuilder.Entity<Note>().ToTable("Notes");
         modelBuilder.Entity<User>().ToTable("User");
     }
 }

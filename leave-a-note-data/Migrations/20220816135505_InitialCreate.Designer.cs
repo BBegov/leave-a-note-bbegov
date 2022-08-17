@@ -12,7 +12,7 @@ using leave_a_note_data;
 namespace leave_a_note_data.Migrations
 {
     [DbContext(typeof(LeaveANoteDbContext))]
-    [Migration("20220812183126_InitialCreate")]
+    [Migration("20220816135505_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -46,7 +46,7 @@ namespace leave_a_note_data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Note", (string)null);
+                    b.ToTable("Notes", (string)null);
                 });
 
             modelBuilder.Entity("leave_a_note_data.Entities.User", b =>

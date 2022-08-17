@@ -14,7 +14,7 @@ public class UserRepository : IUserRepository
     
     public async Task<List<User>> GetAllAsync()
     {
-        return await _context.Users.Include(user => user.Notes).AsNoTracking().ToListAsync();
+        return await _context.Users.Include(u => u.Notes).AsNoTracking().ToListAsync();
     }
 
     public async Task<User> GetAsync(int id)
