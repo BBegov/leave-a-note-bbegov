@@ -29,6 +29,14 @@ public class UserService : IUserService
             .ToUserViewDto();
     }
 
+    public async Task<List<NoteViewDto>> GetNoteByUserIdAsync(int id)
+    {
+
+        return (await _userRepository.GetAsync(id))
+            .Notes
+            .ToNoteListViewDto();
+    }
+
     public async Task<UserViewDto> AddUserAsync(UserCreateDto userCreateDto)
     {
         userCreateDto.Password = _passwordHasher.HashPassword(userCreateDto.Password);

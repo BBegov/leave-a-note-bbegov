@@ -36,6 +36,19 @@ public class UsersController : ControllerBase
         }
     }
 
+    [HttpGet("{id:int}/Notes")]
+    public async Task<ActionResult<List<NoteViewDto>>> GetNotesByUserId(int id)
+    {
+        try
+        {
+            return await _userService.GetNoteByUserIdAsync(id);
+        }
+        catch (InvalidOperationException)
+        {
+            return NotFound($"No user with ID:{id} found.");
+        }
+    }
+
     [HttpPost]
     public async Task<ActionResult<UserViewDto>> AddUser(UserCreateDto newUser)
     {
@@ -79,7 +92,7 @@ public class UsersController : ControllerBase
         }
     }
 
-    [HttpPatch("{id:int}")]
+    [HttpPut("{id:int}/password-change")]
     public async Task<ActionResult<UserViewDto>> ChangePassword(UserChangePasswordDto userChangePasswordDto, int id)
     {
         userChangePasswordDto.Id = id;

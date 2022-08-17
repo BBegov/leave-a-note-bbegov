@@ -44,7 +44,7 @@ namespace leave_a_note_data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Note", (string)null);
+                    b.ToTable("Notes", (string)null);
                 });
 
             modelBuilder.Entity("leave_a_note_data.Entities.User", b =>
