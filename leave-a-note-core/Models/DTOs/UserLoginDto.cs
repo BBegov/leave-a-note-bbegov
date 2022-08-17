@@ -1,25 +1,19 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using leave_a_note_data.Entities;
 
-namespace leave_a_note_data.Entities;
+namespace leave_a_note_core.Models.DTOs;
 
-public class User
+public class UserLoginDto
 {
+    [Required]
     public int Id { get; set; }
-
+    
     [Required]
     public string UserName { get; set; }
-
-    [Required]
-    public string FirstName { get; set; }
-
-    [Required]
-    public string LastName { get; set; }
-
+    
     [Required]
     public string PasswordHash { get; set; }
-
+    
     [Required]
     public UserRole Role { get; set; }
-
-    public List<Note> Notes { get; set; }
 }
