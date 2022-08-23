@@ -22,10 +22,18 @@ public class DataSeeder
                 new()
                 {
                     UserName = "MainAdmin",
-                    FirstName = "Main",
-                    LastName = "Admin",
+                    FirstName = "John",
+                    LastName = "Doe",
                     PasswordHash = BCrypt.Net.BCrypt.HashPassword("asdf1234"),
                     Role = UserRole.Admin
+                },
+                new()
+                {
+                    UserName = "FirstUser",
+                    FirstName = "Simon",
+                    LastName = "Mathias",
+                    PasswordHash = BCrypt.Net.BCrypt.HashPassword("fdsa1234"),
+                    Role = UserRole.User
                 }
         };
 
@@ -37,6 +45,18 @@ public class DataSeeder
                 new()
                 {
                     NoteText = "Hello, this is the first note!",
+                    PublishDate = DateTime.Now,
+                    UserId = 1
+                },
+                new()
+                {
+                    NoteText = "Second message from Simon",
+                    PublishDate = DateTime.Now,
+                    UserId = 2
+                },
+                new()
+                {
+                    NoteText = "Test message from John",
                     PublishDate = DateTime.Now,
                     UserId = 1
                 }
