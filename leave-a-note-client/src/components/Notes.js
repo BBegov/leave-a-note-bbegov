@@ -1,23 +1,24 @@
-import useAxiosFetch from '../hooks/useAxiosFetch';
+import Note from './Note';
 
-const Notes = ({ url }) => {
-    const { data: notes, isLoading, fetchError } = useAxiosFetch(url);
-
+const Notes = ({ isLoading, fetchError, notes, search, handleDelete }) => {
     return (
-        <main className='notes'>
+        <>
             {isLoading && <p className="statusMsg">Loading notes...</p>}
             {!isLoading && fetchError && <p className="statusMsg" style={{ color: "red" }}>{fetchError}</p>}
             {!isLoading && !fetchError && (notes.length ? (
                 <>
-                    {notes.map((note, index) => {
-                        const date = new Date(note.publishDate);
-                        const dateTime = `${date.toLocaleDateString('hu-HU')} ${date.toLocaleTimeString('hu-HU')}`;
-                        return <p key={index}>{dateTime} - {note.noteText}</p>;
-                    })
-                    }
+                    {notes.filter(note => ((note.noteText).toLowerCase()).includes(search.toLowerCase())).map((note) => {
+                        return (
+                            <Note
+                                key={note.id}
+                                note={note}
+                                handleDelete={handleDelete}
+                            />
+                        );
+                    })}
                 </>
             ) : <p className="statusMsg">No notes to display.</p>)}
-        </main >
+        </>
     );
 };
 
