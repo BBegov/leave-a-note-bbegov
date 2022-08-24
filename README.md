@@ -20,9 +20,9 @@ This readme file will also grow continuously.
 - [x] Entity Framework + MSSQL
 - [x] Testing the API with Postman
 - [x] React basics and routing
-- [] Consume REST API endpoints from React
-- [] Role based, JWT Authentication
-- [] Role based feature & route access in React and ASP .NET
+- [ ] Consume REST API endpoints from React
+- [ ] Role based, JWT Authentication
+- [ ] Role based feature & route access in React and ASP .NET
 
 ---
 
@@ -31,14 +31,14 @@ This readme file will also grow continuously.
 - [x] Notes list
   - [x] Add note
   - [x] Delete note
-  - [] Update note
-- [] Register
-- [] User profile:
-  - [] Delete profile
-  - [] Update profile
-- [] Listing logged in user's notes
-- [] Role based authentication (admin, user)
-- [] Login / Logout
+  - [ ] Update note
+- [ ] Register
+- [ ] User profile:
+  - [ ] Delete profile
+  - [ ] Update profile
+- [ ] Listing logged in user's notes
+- [ ] Role based authentication (admin, user)
+- [ ] Login / Logout
 - [x] Users list
 - [x] User's detail page
 
