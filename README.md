@@ -21,6 +21,7 @@ This readme file will also grow continuously.
 - [x] Testing the API with Postman
 - [x] React basics and routing
 - [x] Consume REST API endpoints from React
+- [x] Integration tests added for Notes and Users
 - [ ] Role based, JWT Authentication
 - [ ] Role based feature & route access in React and ASP .NET
 
