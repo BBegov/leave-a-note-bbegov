@@ -1,5 +1,15 @@
-body {
+* {
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 18px;
+}
+
+body {
+  min-height: 100vh;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -10,4 +20,179 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.App {
+  display: flex;
+  flex-direction: column;
+  justify-content: baseline;
+  align-items: center;
+  height: calc(100vh - 2px);
+  max-width: 95vw;
+  min-height: 100vh;
+  margin: auto;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+ol,
+ul {
+  width: 100%;
+  list-style: none;
+}
+
+.note {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1rem;
+  border-bottom: 1px solid #ddd;
+  padding: 0 0.25rem 0;
+}
+
+.noteHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  gap: 1rem;
+}
+
+div.note p {
+  text-align: -webkit-left;
+}
+
+.addForm {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  margin: 0.5rem 0 0;
+  padding: 0 0.5rem 0.25rem;
+  border-bottom: 1px solid #eee;
+}
+
+.addForm label {
+  position: absolute;
+  left: -99999px;
+}
+
+.addForm input[type='text'] {
+  flex-grow: 1;
+  max-width: calc(100% - 50px);
+  min-height: 48px;
+  font-size: 1rem;
+  padding: 0.25rem;
+  border-radius: 0.25rem;
+  margin-right: 0.25rem;
+  outline: none;
+}
+
+.updateForm {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  margin: 0.5rem 0 0;
+  padding: 0 0.5rem 0.25rem;
+  border-bottom: 1px solid #eee;
+}
+
+.updateForm label {
+  position: absolute;
+  left: -99999px;
+}
+
+.updateForm input[type='text'] {
+  flex-grow: 1;
+  max-width: calc(100% - 50px);
+  min-height: 48px;
+  font-size: 1rem;
+  padding: 0.25rem;
+  border-radius: 0.25rem;
+  margin-right: 0.25rem;
+  outline: none;
+}
+
+button {
+  height: 48px;
+  min-width: 48px;
+  border-radius: 0.25rem;
+  padding: 0.5rem;
+  font-size: 1rem;
+  background-color: aliceblue;
+  color: mediumblue;
+  cursor: pointer;
+}
+
+button:focus,
+button:hover {
+  color: white;
+  background-color: limegreen;
+  outline: none;
+}
+
+.deleteButton,
+.updateButton {
+  min-height: 48px;
+  min-width: 48px;
+}
+
+.updateButton:hover {
+  color: #0d6efd;
+}
+
+.deleteButton:hover {
+  color: red;
+}
+
+.lineButtonsContainer {
+  display: flex;
+  flex-direction: row;
+  min-width: min-content;
+  gap: 0.5rem;
+}
+
+.searchForm {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  margin: 0.25rem 0 0;
+  padding: 0 0.5rem 0.25rem;
+  border-bottom: 1px solid #eee;
+}
+
+.searchForm label {
+  position: absolute;
+  left: -99999px;
+}
+
+.searchForm input[type='text'] {
+  flex-grow: 1;
+  max-width: 100%;
+  min-height: 48px;
+  font-size: 1rem;
+  padding: 0.25rem;
+  border-radius: 0.25rem;
+  outline: none;
+}
+
+.navbarContainer {
+  width: 100%;
+}
+
+main {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+footer {
+  background-color: #0d6efd;
+  color: white;
+  width: 100%;
 }

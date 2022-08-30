@@ -16,7 +16,9 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: MyAllowSpecificOrigins,
         policy =>
         {
-            policy.WithOrigins("http://localhost:3000")
+            policy.WithOrigins(
+                    "http://localhost:3000",
+                    "https://gentle-plant-00a638303.1.azurestaticapps.net")
                 .AllowAnyHeader()
                 .AllowAnyMethod();
         });

@@ -1,20 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './index.css';
 import App from './App';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Notes from './components/Notes';
+import Home from './components/Home';
 import Users from './components/Users';
 
+const BaseUrl = `${process.env.REACT_APP_HOST_URL}/Api`;
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />}>
-          <Route path="home" element={<Notes url={"https://localhost:44321/api/Notes"} />} />
-          <Route path="mynotes" element={<Notes url={"https://localhost:44321/api/Users/1/Notes"} />} />
-          <Route path="users" element={<Users url={"https://localhost:44321/api/Users"} />} />
+          <Route path="home" element={<Home url={BaseUrl + "/Notes"} />} />
+          <Route path="mynotes" element={<Home url={BaseUrl + "/Users/2/Notes"} />} />
+          <Route path="users" element={<Users url={BaseUrl + "/Users"} />} />
         </Route>
       </Routes>
     </BrowserRouter>
