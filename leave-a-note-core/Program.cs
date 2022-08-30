@@ -18,7 +18,7 @@ builder.Services.AddCors(options =>
         {
             policy.WithOrigins(
                     "http://localhost:3000",
-                    "https://gentle-plant-00a638303.1.azurestaticapps.net")
+                    "https://witty-wave-02367ea03.1.azurestaticapps.net")
                 .AllowAnyHeader()
                 .AllowAnyMethod();
         });
