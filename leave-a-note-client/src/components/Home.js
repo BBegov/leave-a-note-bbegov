@@ -29,7 +29,16 @@ const Home = ({ url }) => {
 
     const handleDelete = async (id) => {
         setNotes(notes.filter(note => note.id !== id));
-        await axios.delete(`https://localhost:44321/api/Notes/${id}`);
+        await axios.delete(`${url}/${id}`);
+    };
+
+    const handleUpdate = async (id, updateNote) => {
+        const response = await axios.put(`${url}/${id}`, {
+            noteText: updateNote,
+            userId: 1
+        });
+
+        setNotes([response.data, ...Notes]);
     };
 
     return (
@@ -49,6 +58,7 @@ const Home = ({ url }) => {
                 notes={notes}
                 search={search}
                 handleDelete={handleDelete}
+                handleUpdate={handleUpdate}
             />
         </div >
     );
