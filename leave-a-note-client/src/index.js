@@ -6,7 +6,7 @@ import App from './App';
 import Home from './components/Home';
 import Users from './components/Users';
 
-const BaseUrl = `${process.env.REACT_APP_HOST_URL}`;
+const BaseUrl = `${process.env.REACT_APP_HOST_URL}/Api`;
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
