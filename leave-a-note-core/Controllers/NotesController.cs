@@ -1,10 +1,7 @@
 ﻿using System.Runtime.CompilerServices;
-using BCrypt.Net;
 using leave_a_note_core.Models.DTOs;
 using leave_a_note_core.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace leave_a_note_core.Controllers;
 
@@ -74,6 +71,10 @@ public class NotesController : ControllerBase
         {
             await _noteService.DeleteNoteAsync(id);
             return NoContent();
+        }
+        catch (RuntimeWrappedException ex)
+        {
+            return BadRequest(ex.Message);
         }
         catch (InvalidOperationException)
         {
