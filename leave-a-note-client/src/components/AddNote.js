@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { FaPlus } from 'react-icons/fa';
+import { FaPlus } from 'react-icons/fa/index.esm';
 
 const AddNote = ({ handleSubmit, newNote, setNewNote }) => {
   const inputRef = useRef();
