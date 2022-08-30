@@ -5,7 +5,9 @@ VisualStudioVersion = 17.1.32414.318
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "leave-a-note-core", "leave-a-note-core\leave-a-note-core.csproj", "{FD0DDE87-09D3-45D9-8EAC-E992C7D1FFF5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "leave-a-note-data", "leave-a-note-data\leave-a-note-data.csproj", "{9C884B84-B9F6-42E8-B514-569C1449306F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "leave-a-note-data", "leave-a-note-data\leave-a-note-data.csproj", "{9C884B84-B9F6-42E8-B514-569C1449306F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "leave-a-note-test", "leave-a-note-test\leave-a-note-test.csproj", "{D5A92849-16B0-49D4-8984-9C3BCF547749}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{9C884B84-B9F6-42E8-B514-569C1449306F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C884B84-B9F6-42E8-B514-569C1449306F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9C884B84-B9F6-42E8-B514-569C1449306F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5A92849-16B0-49D4-8984-9C3BCF547749}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5A92849-16B0-49D4-8984-9C3BCF547749}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5A92849-16B0-49D4-8984-9C3BCF547749}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5A92849-16B0-49D4-8984-9C3BCF547749}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
