@@ -91,6 +91,31 @@ div.note p {
   outline: none;
 }
 
+.updateForm {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  margin: 0.5rem 0 0;
+  padding: 0 0.5rem 0.25rem;
+  border-bottom: 1px solid #eee;
+}
+
+.updateForm label {
+  position: absolute;
+  left: -99999px;
+}
+
+.updateForm input[type='text'] {
+  flex-grow: 1;
+  max-width: calc(100% - 50px);
+  min-height: 48px;
+  font-size: 1rem;
+  padding: 0.25rem;
+  border-radius: 0.25rem;
+  margin-right: 0.25rem;
+  outline: none;
+}
+
 button {
   height: 48px;
   min-width: 48px;
@@ -109,13 +134,25 @@ button:hover {
   outline: none;
 }
 
-.deleteButton {
+.deleteButton,
+.updateButton {
   min-height: 48px;
   min-width: 48px;
 }
 
+.updateButton:hover {
+  color: #0d6efd;
+}
+
 .deleteButton:hover {
   color: red;
+}
+
+.lineButtonsContainer {
+  display: flex;
+  flex-direction: row;
+  min-width: min-content;
+  gap: 0.5rem;
 }
 
 .searchForm {
