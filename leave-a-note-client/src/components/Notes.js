@@ -1,6 +1,11 @@
 import Note from './Note';
 
-const Notes = ({ isLoading, fetchError, notes, search, handleDelete }) => {
+const Notes = ({
+    isLoading, fetchError,
+    notes,
+    search,
+    handleDelete,
+    updateNote, setUpdateNote, handleUpdate }) => {
     return (
         <>
             {isLoading && <p className="statusMsg">Loading notes...</p>}
@@ -13,6 +18,9 @@ const Notes = ({ isLoading, fetchError, notes, search, handleDelete }) => {
                                 key={note.id}
                                 note={note}
                                 handleDelete={handleDelete}
+                                updateNote={updateNote}
+                                setUpdateNote={setUpdateNote}
+                                handleUpdate={handleUpdate}
                             />
                         );
                     })}
