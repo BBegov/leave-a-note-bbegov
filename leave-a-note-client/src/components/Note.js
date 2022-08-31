@@ -9,7 +9,7 @@ const Note = ({ note, handleDelete, handleUpdate }) => {
 
     return (
         <div key={note.id} className='note'>
-            <div>
+            <div className='noteContent'>
                 <div className='noteHeader'>
                     <p>{dateTime}</p>
                     <p>by User {note.userId}</p>
@@ -24,7 +24,7 @@ const Note = ({ note, handleDelete, handleUpdate }) => {
                     <p>{note.noteText}</p>
                 )}
             </div>
-            <div className='lineButtonsContainer'>
+            <div className='lineButtons'>
                 <FiEdit
                     role='button'
                     className='updateButton'

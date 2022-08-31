@@ -55,6 +55,10 @@ ul {
   padding: 0 0.25rem 0;
 }
 
+.noteContent {
+  flex-grow: 1;
+}
+
 .noteHeader {
   display: flex;
   flex-direction: row;
@@ -107,7 +111,6 @@ div.note p {
 
 .updateForm input[type='text'] {
   flex-grow: 1;
-  max-width: calc(100% - 50px);
   min-height: 48px;
   font-size: 1rem;
   padding: 0.25rem;
@@ -158,7 +161,7 @@ button:hover {
   color: orange;
 }
 
-.lineButtonsContainer {
+.lineButtons {
   display: flex;
   flex-direction: row;
   min-width: min-content;
