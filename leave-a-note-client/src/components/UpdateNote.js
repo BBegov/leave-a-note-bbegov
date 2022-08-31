@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { FiPlusSquare } from 'react-icons/fi';
+import { MdOutlineCancel } from 'react-icons/md';
 
 const UpdateNote = ({ id, updateNote, setUpdateNote, handleUpdate }) => {
     const inputRef = useRef();
@@ -19,10 +20,17 @@ const UpdateNote = ({ id, updateNote, setUpdateNote, handleUpdate }) => {
             />
             <FiPlusSquare
                 role='button'
-                className='updateButton'
+                className='confirmButton'
                 tabIndex='0'
                 onClick={() => { handleUpdate(id, updateNote); setUpdateNote(''); }}
-                aria-label={`Confirm update`}
+                aria-label={'Confirm update'}
+            />
+            <MdOutlineCancel
+                role='button'
+                className='cancelButton'
+                tabIndex='0'
+                onClick={() => setUpdateNote('')}
+                aria-label={'Cancel update'}
             />
         </form>
     );
