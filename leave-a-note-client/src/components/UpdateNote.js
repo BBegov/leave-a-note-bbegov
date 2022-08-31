@@ -5,7 +5,7 @@ const UpdateNote = ({ id, updateNote, setUpdateNote, handleUpdate }) => {
     const inputRef = useRef();
 
     return (
-        <form className='updateForm' onSubmit={(e) => { e.preventDefault(); handleUpdate(id) }}>
+        <form className='updateForm' onSubmit={(e) => e.preventDefault()}>
             <label htmlFor='updateNote'>Update Note</label>
             <input
                 autoFocus
@@ -17,13 +17,13 @@ const UpdateNote = ({ id, updateNote, setUpdateNote, handleUpdate }) => {
                 value={updateNote}
                 onChange={(e) => setUpdateNote(e.target.value)}
             />
-            <button
-                type='submit'
-                aria-label='Update Note'
-                onClick={() => inputRef.current.focus()}
-            >
-                <FiPlusSquare />
-            </button>
+            <FiPlusSquare
+                role='button'
+                className='updateButton'
+                tabIndex='0'
+                onClick={() => { handleUpdate(id, updateNote); setUpdateNote(''); }}
+                aria-label={`Confirm update`}
+            />
         </form>
     );
 };
