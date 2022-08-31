@@ -12,6 +12,15 @@ This readme file will also grow continuously.
 
 ---
 
+## External link
+
+The app is deployed into cloud service to be able to use it.
+
+Azure link for the frontend:
+https://witty-wave-02367ea03.1.azurestaticapps.net/home
+
+---
+
 ### Tasks to proceed
 
 - [x] Planning out application Domain Model and REST API
