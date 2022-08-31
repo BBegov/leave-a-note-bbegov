@@ -38,7 +38,7 @@ const Home = ({ url }) => {
             userId: 1
         });
 
-        setNotes([response.data, ...Notes]);
+        setNotes([response.data, ...(notes.filter(note => note.id !== id))]);
     };
 
     return (

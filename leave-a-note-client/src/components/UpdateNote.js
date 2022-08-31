@@ -1,11 +1,12 @@
 import React, { useRef } from 'react';
 import { FiPlusSquare } from 'react-icons/fi';
+import { MdOutlineCancel } from 'react-icons/md';
 
 const UpdateNote = ({ id, updateNote, setUpdateNote, handleUpdate }) => {
     const inputRef = useRef();
 
     return (
-        <form className='updateForm' onSubmit={(e) => { e.preventDefault(); handleUpdate(id) }}>
+        <form className='updateForm' onSubmit={(e) => e.preventDefault()}>
             <label htmlFor='updateNote'>Update Note</label>
             <input
                 autoFocus
@@ -17,13 +18,20 @@ const UpdateNote = ({ id, updateNote, setUpdateNote, handleUpdate }) => {
                 value={updateNote}
                 onChange={(e) => setUpdateNote(e.target.value)}
             />
-            <button
-                type='submit'
-                aria-label='Update Note'
-                onClick={() => inputRef.current.focus()}
-            >
-                <FiPlusSquare />
-            </button>
+            <FiPlusSquare
+                role='button'
+                className='confirmButton'
+                tabIndex='0'
+                onClick={() => { handleUpdate(id, updateNote); setUpdateNote(''); }}
+                aria-label={'Confirm update'}
+            />
+            <MdOutlineCancel
+                role='button'
+                className='cancelButton'
+                tabIndex='0'
+                onClick={() => setUpdateNote('')}
+                aria-label={'Cancel update'}
+            />
         </form>
     );
 };
