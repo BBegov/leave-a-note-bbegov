@@ -22,6 +22,9 @@ This readme file will also grow continuously.
 - [x] React basics and routing
 - [x] Consume REST API endpoints from React
 - [x] Integration tests added for Notes and Users
+- [x] CI/CD pipeline
+  - [x] Tests included
+  - [x] Deployment to Azure
 - [ ] Role based, JWT Authentication
 - [ ] Role based feature & route access in React and ASP .NET
 
@@ -32,7 +35,7 @@ This readme file will also grow continuously.
 - [x] Notes list
   - [x] Add note
   - [x] Delete note
-  - [ ] Update note
+  - [x] Update note
 - [ ] Register
 - [ ] User profile:
   - [ ] Delete profile
@@ -45,9 +48,8 @@ This readme file will also grow continuously.
 
 ---
 
-### Plans:
+### Plans
 
 - Login / Logout system
 - JWT token usage
-- CI/CD pipeline
-- deploy to Heroku / Azure / Google Cloud
+- deploy to Google Cloud
