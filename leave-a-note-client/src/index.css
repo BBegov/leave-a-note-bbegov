@@ -135,7 +135,9 @@ button:hover {
 }
 
 .deleteButton,
-.updateButton {
+.updateButton,
+.cancelButton,
+.confirmButton {
   min-height: 48px;
   min-width: 48px;
 }
@@ -146,6 +148,14 @@ button:hover {
 
 .deleteButton:hover {
   color: red;
+}
+
+.confirmButton:hover {
+  color: green;
+}
+
+.cancelButton:hover {
+  color: orange;
 }
 
 .lineButtonsContainer {
