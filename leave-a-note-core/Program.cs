@@ -1,5 +1,6 @@
 using System.Text;
 using System.Text.Json.Serialization;
+using leave_a_note_core.Models.Authentication;
 using leave_a_note_core.Services;
 using leave_a_note_core.Services.Authenticators;
 using leave_a_note_core.Services.PasswordHasher;
@@ -13,6 +14,8 @@ using Microsoft.IdentityModel.Tokens;
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.Configure<AuthenticationConfiguration>(builder.Configuration.GetSection("Authentication"));
 
 // Add CORS
 builder.Services.AddCors(options =>
