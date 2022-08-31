@@ -16,6 +16,7 @@ const Note = ({ note, handleDelete, handleUpdate }) => {
                 </div>
                 {updateNote ? (
                     <UpdateNote
+                        id={note.id}
                         updateNote={updateNote}
                         setUpdateNote={setUpdateNote}
                         handleUpdate={handleUpdate}
