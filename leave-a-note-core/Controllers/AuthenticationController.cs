@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace leave_a_note_core.Controllers;
 
+[AllowAnonymous]
 [Route("api/auth")]
 [ApiController]
 public class AuthenticationController : ControllerBase
@@ -23,7 +24,6 @@ public class AuthenticationController : ControllerBase
         _authenticator = authenticator;
     }
 
-    [AllowAnonymous]
     [HttpPost("login")]
     public async Task<IActionResult> Login(LoginRequest loginRequest)
     {
