@@ -1,6 +1,7 @@
 ﻿using BCrypt.Net;
 using leave_a_note_core.Models.DTOs;
 using leave_a_note_core.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,12 +18,14 @@ public class UsersController : ControllerBase
         _userService = userService;
     }
 
+    [Authorize(Roles = "Admin")]
     [HttpGet]
     public async Task<ActionResult<List<UserViewDto>>> GetAllUsers()
     {
         return await _userService.GetAllUsersAsync();
     }
 
+    [Authorize(Roles = "Admin, User")]
     [HttpGet("{id:int}", Name = "GetUser")]
     public async Task<ActionResult<UserViewDto>> GetUser(int id)
     {
@@ -36,6 +39,7 @@ public class UsersController : ControllerBase
         }
     }
 
+    [Authorize(Roles = "Admin, User")]
     [HttpGet("{id:int}/Notes")]
     public async Task<ActionResult<List<NoteViewDto>>> GetNotesByUserId(int id)
     {
@@ -49,6 +53,7 @@ public class UsersController : ControllerBase
         }
     }
 
+    [Authorize(Roles = "Admin, User")]
     [HttpPost]
     public async Task<ActionResult<UserViewDto>> AddUser(UserCreateDto newUser)
     {
@@ -63,6 +68,7 @@ public class UsersController : ControllerBase
         }
     }
 
+    [Authorize(Roles = "Admin, User")]
     [HttpPut("{id:int}")]
     public async Task<ActionResult<UserViewDto>> UpdateUser(UserUpdateDto updatedUser, int id)
     {
@@ -78,6 +84,7 @@ public class UsersController : ControllerBase
         }
     }
 
+    [Authorize(Roles = "Admin, User")]
     [HttpDelete("{id:int}")]
     public async Task<ActionResult> DeleteUser(int id)
     {
@@ -92,6 +99,7 @@ public class UsersController : ControllerBase
         }
     }
 
+    [Authorize(Roles = "Admin, User")]
     [HttpPut("{id:int}/password-change")]
     public async Task<ActionResult<UserViewDto>> ChangePassword(UserChangePasswordDto userChangePasswordDto, int id)
     {

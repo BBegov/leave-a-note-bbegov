@@ -1,6 +1,7 @@
 ﻿using System.Runtime.CompilerServices;
 using leave_a_note_core.Models.DTOs;
 using leave_a_note_core.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace leave_a_note_core.Controllers;
@@ -16,12 +17,14 @@ public class NotesController : ControllerBase
         _noteService = noteService;
     }
 
+    [AllowAnonymous]
     [HttpGet]
     public async Task<ActionResult<List<NoteViewDto>>> GetAllNotes()
     {
         return await _noteService.GetAllNotesAsync();
     }
 
+    [Authorize(Roles = "Admin, User")]
     [HttpGet("{id:int}", Name = "GetNote")]
     public async Task<ActionResult<NoteViewDto>> GetNote(int id)
     {
@@ -35,6 +38,7 @@ public class NotesController : ControllerBase
         }
     }
 
+    [Authorize(Roles = "Admin, User")]
     [HttpPost]
     public async Task<ActionResult<NoteViewDto>> AddNote(NoteCreateDto newNote)
     {
@@ -49,6 +53,7 @@ public class NotesController : ControllerBase
         }
     }
 
+    [Authorize(Roles = "Admin, User")]
     [HttpPut("{id:int}")]
     public async Task<ActionResult<NoteViewDto>> UpdateNote(NoteUpdateDto updatedNote, int id)
     {
@@ -64,6 +69,7 @@ public class NotesController : ControllerBase
         }
     }
 
+    [Authorize(Roles = "Admin, User")]
     [HttpDelete("{id:int}")]
     public async Task<ActionResult> DeleteNote(int id)
     {
