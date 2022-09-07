@@ -24,17 +24,18 @@ internal class InMemoryUsersApiTests
         _client = factory.CreateClient();
         _client.BaseAddress = new Uri("https://localhost:44321");
         _authorizationRequestUri = "/api/auth/login";
-        SetAuthorizationHeaderAsync().Wait();
-    }
 
-    private async Task SetAuthorizationHeaderAsync()
-    {
         var content = new LoginRequest
         {
             Username = "MainAdmin",
             Password = "asdf1234"
         };
 
+        SetAuthorizationHeaderAsync(content).Wait();
+    }
+
+    private async Task SetAuthorizationHeaderAsync(LoginRequest content)
+    {
         var tokenResponse = await _client.PostAsJsonAsync(_authorizationRequestUri, content);
         var tokenResponseString = await tokenResponse.Content.ReadAsStringAsync();
         var authenticatedUserResponse = JsonConvert.DeserializeObject<AuthenticatedUserResponse>(tokenResponseString);
@@ -47,6 +48,38 @@ internal class InMemoryUsersApiTests
     public void Setup()
     {
         _requestUri = "/api/users";
+    }
+
+    [Test]
+    public async Task TestGetAllUsers_WrongAuthorizationShallGiveForbiddenResponse()
+    {
+        // Arrange
+        var content = new LoginRequest
+        {
+            Username = "FirstUser",
+            Password = "fdsa1234"
+        };
+
+        SetAuthorizationHeaderAsync(content).Wait();
+
+        // Act
+        var response = await _client.GetAsync(_requestUri);
+        
+        //Assert
+        Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.Forbidden));
+    }
+
+    [Test]
+    public async Task TestGetAllUsers_WithoutAuthorizationShallGiveUnauthorizedResponse()
+    {
+        // Arrange
+        _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("");
+
+        // Act
+        var response = await _client.GetAsync(_requestUri);
+
+        //Assert
+        Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.Unauthorized));
     }
 
     [Test]
