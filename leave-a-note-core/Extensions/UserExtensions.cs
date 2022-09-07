@@ -69,4 +69,15 @@ public static class UserExtensions
             Password = user.PasswordHash
         };
     }
+
+    public static UserLoginDto ToUserLoginDto(this User user)
+    {
+        return new UserLoginDto
+        {
+            Id = user.Id,
+            PasswordHash = user.PasswordHash,
+            Role = user.Role,
+            UserName = user.UserName
+        };
+    }
 }

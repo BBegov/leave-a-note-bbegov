@@ -1,8 +1,12 @@
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
+using leave_a_note_core.Models.Authentication.Requests;
+using leave_a_note_core.Models.Authentication.Responses;
 using leave_a_note_core.Models.DTOs;
 using Newtonsoft.Json;
 
@@ -11,26 +15,44 @@ namespace leave_a_note_test;
 public class InMemoryNotesApiTests
 {
     private readonly HttpClient _client;
-    private const string BaseUrl = "https://localhost:44321/api/notes";
+    private string _requestUri = string.Empty;
 
     public InMemoryNotesApiTests()
     {
         var factory = new TestingWebAppFactory<Program>();
         _client = factory.CreateClient();
+        _client.BaseAddress = new Uri("https://localhost:44321");
+        SetAuthorizationHeaderAsync().Wait();
+    }
+
+    private async Task SetAuthorizationHeaderAsync()
+    {
+        var content = new LoginRequest
+        {
+            Username = "MainAdmin",
+            Password = "asdf1234"
+        };
+
+        var tokenResponse = await _client.PostAsJsonAsync("/api/auth/login", content);
+        var tokenResponseString = await tokenResponse.Content.ReadAsStringAsync();
+        var authenticatedUserResponse = JsonConvert.DeserializeObject<AuthenticatedUserResponse>(tokenResponseString);
+        var accessToken = authenticatedUserResponse.AccessToken;
+
+        _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
     }
 
     [SetUp]
     public void Setup()
     {
-
+        _requestUri = "/api/notes";
     }
 
     [Test]
-    public async Task TestGetAllNotes()
+    public async Task TestGetAllNotes_ShallSend_Data()
     {
         // Arrange
         // Act
-        var response = await _client.GetAsync(BaseUrl);
+        var response = await _client.GetAsync(_requestUri);
         response.EnsureSuccessStatusCode();
         var responseString = await response.Content.ReadAsStringAsync();
         var actual = JsonConvert.DeserializeObject<List<NoteViewDto>>(responseString);
@@ -40,25 +62,28 @@ public class InMemoryNotesApiTests
     }
 
     [Test]
-    public async Task TestGetAllNotes_InvalidUrl()
+    public async Task TestGetAllNotes_InvalidUrl_ShallSend_NotFound()
     {
         // Arrange
-        const string invalidUrl = BaseUrl + "wrongEnding";
+        const string invalidUrlEnding = "wrongEnding";
+        _requestUri += $"/{invalidUrlEnding}";
+
         // Act
-        var response = await _client.GetAsync(invalidUrl);
+        var response = await _client.GetAsync(_requestUri);
 
         // Assert
         Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.NotFound));
     }
 
     [Test]
-    public async Task TestGetNote_ValidId()
+    public async Task TestGetNote_ShallSend_RequestedNote()
     {
         // Arrange
         const int noteId = 2;
+        _requestUri += $"/{noteId}";
 
         // Act
-        var response = await _client.GetAsync(BaseUrl + $"/{noteId}");
+        var response = await _client.GetAsync(_requestUri);
         response.EnsureSuccessStatusCode();
         var responseString = await response.Content.ReadAsStringAsync();
         var actual = JsonConvert.DeserializeObject<NoteViewDto>(responseString);
@@ -68,20 +93,21 @@ public class InMemoryNotesApiTests
     }
 
     [Test]
-    public async Task TestGetNote_InvalidId()
+    public async Task TestGetNote_InvalidId_ShallSend_NotFound()
     {
         // Arrange
         const int invalidNoteId = 10;
+        _requestUri += $"/{invalidNoteId}";
 
         // Act
-        var response = await _client.GetAsync(BaseUrl + $"/{invalidNoteId}");
+        var response = await _client.GetAsync(_requestUri);
 
         // Assert
         Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.NotFound));
     }
 
     [Test]
-    public async Task TestAddNote_ValidModel()
+    public async Task TestAddNote_ShallSend_GivenNote()
     {
         // Arrange
         const string expectedNoteText = "Hey!";
@@ -93,7 +119,7 @@ public class InMemoryNotesApiTests
         };
 
         // Act
-        var response = await _client.PostAsJsonAsync(BaseUrl, content);
+        var response = await _client.PostAsJsonAsync(_requestUri, content);
         var responseString = await response.Content.ReadAsStringAsync();
         var actual = JsonConvert.DeserializeObject<NoteViewDto>(responseString);
 
@@ -106,13 +132,13 @@ public class InMemoryNotesApiTests
     }
 
     [Test]
-    public async Task TestAddNote_InvalidModel()
+    public async Task TestAddNote_InvalidModel_ShallSend_BadRequest()
     {
         // Arrange
         var invalidContent = new NoteCreateDto();
 
         // Act
-        var response = await _client.PostAsJsonAsync(BaseUrl, invalidContent);
+        var response = await _client.PostAsJsonAsync(_requestUri, invalidContent);
 
         // Assert
         Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.BadRequest));
@@ -121,9 +147,10 @@ public class InMemoryNotesApiTests
     [Test]
     [TestCase(1, "This will be replaced")]
     [TestCase(1, "Hey!")]
-    public async Task TestUpdateNote_ValidModel_ValidNoteId(int noteId, string updateText)
+    public async Task TestUpdateNote_ShallSend_UpdatedNote(int noteId, string updateText)
     {
         // Arrange
+        _requestUri += $"/{noteId}";
         var content = new NoteUpdateDto
         {
             NoteText = updateText,
@@ -131,7 +158,7 @@ public class InMemoryNotesApiTests
         };
 
         // Act
-        var response = await _client.PutAsJsonAsync(BaseUrl + $"/{noteId}", content);
+        var response = await _client.PutAsJsonAsync(_requestUri, content);
         var responseString = await response.Content.ReadAsStringAsync();
         var actual = JsonConvert.DeserializeObject<NoteViewDto>(responseString);
 
@@ -140,24 +167,26 @@ public class InMemoryNotesApiTests
     }
 
     [Test]
-    public async Task TestUpdateNote_InvalidModel()
+    public async Task TestUpdateNote_InvalidModel_ShallSend_BadRequest()
     {
         // Arrange
         const int noteId = 1;
+        _requestUri += $"/{noteId}";
         var invalidContent = new NoteUpdateDto();
 
         // Act
-        var response = await _client.PutAsJsonAsync(BaseUrl + $"/{noteId}", invalidContent);
+        var response = await _client.PutAsJsonAsync(_requestUri, invalidContent);
 
         // Assert
         Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.BadRequest));
     }
 
     [Test]
-    public async Task TestUpdateNote_ValidModel_InvalidNoteId()
+    public async Task TestUpdateNote_InvalidNoteId_ShallSend_NotFound()
     {
         // Arrange
         const int invalidNoteId = 10;
+        _requestUri += $"/{invalidNoteId}";
         var updateContent = new NoteUpdateDto
         {
             NoteText = "Hey!",
@@ -165,33 +194,35 @@ public class InMemoryNotesApiTests
         };
 
         // Act
-        var response = await _client.PutAsJsonAsync(BaseUrl + $"/{invalidNoteId}", updateContent);
+        var response = await _client.PutAsJsonAsync(_requestUri, updateContent);
 
         // Assert
         Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.NotFound));
     }
 
     [Test]
-    public async Task TestDeleteNote_ValidId()
+    public async Task TestDeleteNote_ShallSend_NoContent()
     {
         // Arrange
         const int noteId = 3;
+        _requestUri += $"/{noteId}";
 
         // Act
-        var response = await _client.DeleteAsync(BaseUrl + $"/{noteId}");
+        var response = await _client.DeleteAsync(_requestUri);
 
         // Assert
         Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.NoContent));
     }
 
     [Test]
-    public async Task TestDeleteNote_InvalidId()
+    public async Task TestDeleteNote_InvalidId_ShallSend_NotFound()
     {
         // Arrange
         const int invalidNoteId = 10;
+        _requestUri += $"/{invalidNoteId}";
 
         // Act
-        var response = await _client.DeleteAsync(BaseUrl + $"/{invalidNoteId}");
+        var response = await _client.DeleteAsync(_requestUri);
 
         // Assert
         Assert.That(response.StatusCode, Is.EqualTo(HttpStatusCode.NotFound));

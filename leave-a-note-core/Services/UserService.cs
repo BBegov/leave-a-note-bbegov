@@ -69,6 +69,14 @@ public class UserService : IUserService
 
         userToUpdate.Password = _passwordHasher.HashPassword(userChangePasswordDto.NewPassword);
 
-        return (await _userRepository.UpdateWithPasswordAsync(userToUpdate.ToUserEntity())).ToUserViewDto();
+        return (await _userRepository.UpdateWithPasswordAsync(userToUpdate.ToUserEntity()))
+            .ToUserViewDto();
+    }
+
+    public async Task<UserLoginDto> GetUserLoginDtoByUsername(string username)
+    {
+        return (await _userRepository.GetAllAsync())
+            .Single(user => user.UserName == username)
+            .ToUserLoginDto();
     }
 }
