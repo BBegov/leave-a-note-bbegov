@@ -48,7 +48,7 @@ public class InMemoryNotesApiTests
     }
 
     [Test]
-    public async Task TestGetAllNotes()
+    public async Task TestGetAllNotes_ShallSend_Data()
     {
         // Arrange
         // Act
@@ -62,7 +62,7 @@ public class InMemoryNotesApiTests
     }
 
     [Test]
-    public async Task TestGetAllNotes_InvalidUrl()
+    public async Task TestGetAllNotes_InvalidUrl_ShallSend_NotFound()
     {
         // Arrange
         const string invalidUrlEnding = "wrongEnding";
@@ -76,7 +76,7 @@ public class InMemoryNotesApiTests
     }
 
     [Test]
-    public async Task TestGetNote_ValidId()
+    public async Task TestGetNote_ShallSend_RequestedNote()
     {
         // Arrange
         const int noteId = 2;
@@ -93,7 +93,7 @@ public class InMemoryNotesApiTests
     }
 
     [Test]
-    public async Task TestGetNote_InvalidId()
+    public async Task TestGetNote_InvalidId_ShallSend_NotFound()
     {
         // Arrange
         const int invalidNoteId = 10;
@@ -107,7 +107,7 @@ public class InMemoryNotesApiTests
     }
 
     [Test]
-    public async Task TestAddNote_ValidModel()
+    public async Task TestAddNote_ShallSend_GivenNote()
     {
         // Arrange
         const string expectedNoteText = "Hey!";
@@ -132,7 +132,7 @@ public class InMemoryNotesApiTests
     }
 
     [Test]
-    public async Task TestAddNote_InvalidModel()
+    public async Task TestAddNote_InvalidModel_ShallSend_BadRequest()
     {
         // Arrange
         var invalidContent = new NoteCreateDto();
@@ -147,7 +147,7 @@ public class InMemoryNotesApiTests
     [Test]
     [TestCase(1, "This will be replaced")]
     [TestCase(1, "Hey!")]
-    public async Task TestUpdateNote_ValidModel_ValidNoteId(int noteId, string updateText)
+    public async Task TestUpdateNote_ShallSend_UpdatedNote(int noteId, string updateText)
     {
         // Arrange
         _requestUri += $"/{noteId}";
@@ -167,7 +167,7 @@ public class InMemoryNotesApiTests
     }
 
     [Test]
-    public async Task TestUpdateNote_InvalidModel()
+    public async Task TestUpdateNote_InvalidModel_ShallSend_BadRequest()
     {
         // Arrange
         const int noteId = 1;
@@ -182,7 +182,7 @@ public class InMemoryNotesApiTests
     }
 
     [Test]
-    public async Task TestUpdateNote_ValidModel_InvalidNoteId()
+    public async Task TestUpdateNote_InvalidNoteId_ShallSend_NotFound()
     {
         // Arrange
         const int invalidNoteId = 10;
@@ -201,7 +201,7 @@ public class InMemoryNotesApiTests
     }
 
     [Test]
-    public async Task TestDeleteNote_ValidId()
+    public async Task TestDeleteNote_ShallSend_NoContent()
     {
         // Arrange
         const int noteId = 3;
@@ -215,7 +215,7 @@ public class InMemoryNotesApiTests
     }
 
     [Test]
-    public async Task TestDeleteNote_InvalidId()
+    public async Task TestDeleteNote_InvalidId_ShallSend_NotFound()
     {
         // Arrange
         const int invalidNoteId = 10;

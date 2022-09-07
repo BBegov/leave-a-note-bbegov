@@ -51,7 +51,7 @@ internal class InMemoryUsersApiTests
     }
 
     [Test]
-    public async Task TestGetAllUsers_WrongAuthorizationShallGiveForbiddenResponse()
+    public async Task TestGetAllUsers_WrongAuthorization_ShallSend_ForbiddenResponse()
     {
         // Arrange
         var content = new LoginRequest
@@ -70,7 +70,7 @@ internal class InMemoryUsersApiTests
     }
 
     [Test]
-    public async Task TestGetAllUsers_WithoutAuthorizationShallGiveUnauthorizedResponse()
+    public async Task TestGetAllUsers_WithoutAuthorization_ShallSend_UnauthorizedResponse()
     {
         // Arrange
         _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("");
@@ -83,7 +83,7 @@ internal class InMemoryUsersApiTests
     }
 
     [Test]
-    public async Task TestGetAllUsers()
+    public async Task TestGetAllUsers_ShallSend_Users()
     {
         // Arrange
         // Act
@@ -97,7 +97,7 @@ internal class InMemoryUsersApiTests
     }
 
     [Test]
-    public async Task TestGetAllUsers_InvalidUrl()
+    public async Task TestGetAllUsers_InvalidUrl_ShallSend_NotFound()
     {
         // Arrange
         const string invalidUrlEnding = "wrongEnding";
@@ -111,7 +111,7 @@ internal class InMemoryUsersApiTests
     }
 
     [Test]
-    public async Task TestGetUser_ValidId()
+    public async Task TestGetUser_ShallSend_RequestedUser()
     {
         // Arrange
         const int userId = 1;
@@ -128,7 +128,7 @@ internal class InMemoryUsersApiTests
     }
 
     [Test]
-    public async Task TestGetUser_InvalidId()
+    public async Task TestGetUser_InvalidId_ShallSend_NotFound()
     {
         // Arrange
         const int invalidUserId = 10;
@@ -142,7 +142,7 @@ internal class InMemoryUsersApiTests
     }
 
     [Test]
-    public async Task TestAddUser_ValidModel()
+    public async Task TestAddUser_ShallSend_GivenUser()
     {
         // Arrange
         const string expectedUserName = "tester";
@@ -170,7 +170,7 @@ internal class InMemoryUsersApiTests
     }
 
     [Test]
-    public async Task TestAddUser_InvalidModel()
+    public async Task TestAddUser_InvalidModel_ShallSend_BadRequest()
     {
         // Arrange
         var invalidContent = new UserCreateDto();
@@ -185,7 +185,7 @@ internal class InMemoryUsersApiTests
     [Test]
     [TestCase(1, "username1")]
     [TestCase(1, "username2")]
-    public async Task TestUpdateUser_ValidModel_ValidNoteId(int userId, string updateUserName)
+    public async Task TestUpdateUser_ShallSend_UpdatedUser(int userId, string updateUserName)
     {
         // Arrange
         _requestUri += $"/{userId}";
@@ -206,7 +206,7 @@ internal class InMemoryUsersApiTests
     }
 
     [Test]
-    public async Task TestUpdateUser_InvalidModel()
+    public async Task TestUpdateUser_InvalidModel_ShallSend_BadRequest()
     {
         // Arrange
         const int userId = 1;
@@ -221,7 +221,7 @@ internal class InMemoryUsersApiTests
     }
 
     [Test]
-    public async Task TestUpdateUser_ValidModel_InvalidNoteId()
+    public async Task TestUpdateUser_InvalidNoteId_ShallSend_NotFound()
     {
         // Arrange
         const int invalidUserId = 10;
@@ -242,7 +242,7 @@ internal class InMemoryUsersApiTests
     }
 
     [Test]
-    public async Task TestDeleteUser_ValidId()
+    public async Task TestDeleteUser_ShallSend_NoContent()
     {
         // Arrange
         const int userId = 2;
@@ -256,7 +256,7 @@ internal class InMemoryUsersApiTests
     }
 
     [Test]
-    public async Task TestDeleteUser_InvalidId()
+    public async Task TestDeleteUser_InvalidId_ShallSend_NotFound()
     {
         // Arrange
         const int invalidUserId = 10;
@@ -270,7 +270,7 @@ internal class InMemoryUsersApiTests
     }
 
     [Test]
-    public async Task TestGetNotesByUserId_ValidUserId()
+    public async Task TestGetNotesByUserId_ShallSend_Notes()
     {
         // Arrange
         const int userId = 1;
@@ -286,7 +286,7 @@ internal class InMemoryUsersApiTests
     }
 
     [Test]
-    public async Task TestGetNotesByUserId_InvalidUserId()
+    public async Task TestGetNotesByUserId_InvalidUserId_ShallSend_NotFound()
     {
         // Arrange
         const int invalidUserId = 10;
@@ -300,7 +300,7 @@ internal class InMemoryUsersApiTests
     }
 
     [Test]
-    public async Task TestChangePassword_ValidModel_ValidUserId_ValidContent()
+    public async Task TestChangePassword_ShallSend_UpdatedUser()
     {
         // Arrange
         const int userId = 1;
@@ -324,7 +324,7 @@ internal class InMemoryUsersApiTests
     }
 
     [Test]
-    public async Task TestChangePassword_ValidModel_ValidUserId_InvalidContent()
+    public async Task TestChangePassword_InvalidContent_ShallSend_BadRequest()
     {
         // Arrange
         const int userId = 1;
@@ -346,7 +346,7 @@ internal class InMemoryUsersApiTests
     }
 
     [Test]
-    public async Task TestChangePassword_ValidModel_InvalidUserId()
+    public async Task TestChangePassword_InvalidUserId_ShallSend_NotFound()
     {
         // Arrange
         const int invalidUserId = 10;
@@ -368,7 +368,7 @@ internal class InMemoryUsersApiTests
     }
 
     [Test]
-    public async Task TestChangePassword_InvalidModel()
+    public async Task TestChangePassword_InvalidModel_ShallSend_BadRequest()
     {
         // Arrange
         const int userId = 1;
