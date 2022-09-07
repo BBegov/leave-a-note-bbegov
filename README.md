@@ -34,7 +34,8 @@ https://witty-wave-02367ea03.1.azurestaticapps.net/home
 - [x] CI/CD pipeline
   - [x] Tests included
   - [x] Deployment to Azure
-- [ ] Role based, JWT Authentication
+- [x] Role based, JWT Authentication - backend --> currently available on separate branch
+- [ ] Role based, JWT Authentication - frontend
 - [ ] Role based feature & route access in React and ASP .NET
 
 ---
