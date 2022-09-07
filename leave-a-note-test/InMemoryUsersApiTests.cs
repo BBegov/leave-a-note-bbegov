@@ -16,12 +16,14 @@ internal class InMemoryUsersApiTests
 {
     private readonly HttpClient _client;
     private string _requestUri = string.Empty;
+    private readonly string _authorizationRequestUri;
 
     public InMemoryUsersApiTests()
     {
         var factory = new TestingWebAppFactory<Program>();
         _client = factory.CreateClient();
         _client.BaseAddress = new Uri("https://localhost:44321");
+        _authorizationRequestUri = "/api/auth/login";
         SetAuthorizationHeaderAsync().Wait();
     }
 
@@ -33,7 +35,7 @@ internal class InMemoryUsersApiTests
             Password = "asdf1234"
         };
 
-        var tokenResponse = await _client.PostAsJsonAsync("/api/auth/login", content);
+        var tokenResponse = await _client.PostAsJsonAsync(_authorizationRequestUri, content);
         var tokenResponseString = await tokenResponse.Content.ReadAsStringAsync();
         var authenticatedUserResponse = JsonConvert.DeserializeObject<AuthenticatedUserResponse>(tokenResponseString);
         var accessToken = authenticatedUserResponse.AccessToken;
