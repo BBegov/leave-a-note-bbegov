@@ -12,6 +12,15 @@ This readme file will also grow continuously.
 
 ---
 
+## External link
+
+The app is deployed into cloud service to be able to use it.
+
+Azure link for the frontend:
+https://witty-wave-02367ea03.1.azurestaticapps.net/home
+
+---
+
 ### Tasks to proceed
 
 - [x] Planning out application Domain Model and REST API
@@ -22,7 +31,11 @@ This readme file will also grow continuously.
 - [x] React basics and routing
 - [x] Consume REST API endpoints from React
 - [x] Integration tests added for Notes and Users
-- [ ] Role based, JWT Authentication
+- [x] CI/CD pipeline
+  - [x] Tests included
+  - [x] Deployment to Azure
+- [x] Role based, JWT Authentication - backend --> currently available on separate branch
+- [ ] Role based, JWT Authentication - frontend
 - [ ] Role based feature & route access in React and ASP .NET
 
 ---
@@ -32,7 +45,7 @@ This readme file will also grow continuously.
 - [x] Notes list
   - [x] Add note
   - [x] Delete note
-  - [ ] Update note
+  - [x] Update note
 - [ ] Register
 - [ ] User profile:
   - [ ] Delete profile
@@ -45,9 +58,8 @@ This readme file will also grow continuously.
 
 ---
 
-### Plans:
+### Plans
 
 - Login / Logout system
 - JWT token usage
-- CI/CD pipeline
-- deploy to Heroku / Azure / Google Cloud
+- deploy to Google Cloud
